@@ -1,0 +1,81 @@
+plugins {
+    id "java"
+    id "org.springframework.boot"        version "${springBootVersion}"
+    id "io.spring.dependency-management" version "${springDependencyManagementVersion}"
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+group   = "${projectGroup}"
+version = "${projectVersion}"
+
+compileJava.options.encoding     = "${javaEncoding}"
+compileTestJava.options.encoding = "${javaEncoding}"
+//[compileJava, compileTestJava]*.options*.encoding = "${javaEncoding}"
+
+java {
+    sourceCompatibility = "${javaSource}"
+    targetCompatibility = "${javaTarget}"
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+	mavenCentral()
+}
+
+ext {
+    DEV = "dev"
+    STG = "stg"
+    PRD = "prd"
+    if (!project.hasProperty("profile") || !profile) {
+        ext.profile = DEV //"dev"
+    }
+
+    currentProfile  = "${profile}" // 환경에 따른 배포를 위한 변수    
+    println(project.name + "[${profile}/" + currentProfile + "]")
+    //println "Project Dir :  $projectDir"
+    //println "Build Dir   :  $buildDir"
+
+    isDEV = currentProfile == DEV
+    isSTG = currentProfile == STG
+    isPRD = currentProfile == PRD
+    println(isDEV)
+    println(isSTG)
+    println(isPRD)
+}
+
+sourceSets {
+    main {
+        java.srcDirs = ["src/main/java"]
+
+        if(project.hasProperty( "profile" )) {
+            // resource에 src/main/java 패키지 제외하고 build하기
+            resources.srcDirs = ["src/main/resources", "src/main/resources-${profile}"]
+        }
+    }
+}
+
+dependencies {
+    compileOnly         "org.projectlombok:lombok"
+    annotationProcessor "org.projectlombok:lombok"
+    developmentOnly     "org.springframework.boot:spring-boot-devtools"
+
+	implementation "org.springframework.boot:spring-boot-starter-batch"
+	implementation "org.springframework.cloud:spring-cloud-starter-task"
+	
+	testImplementation "org.springframework.boot:spring-boot-starter-test"
+	testImplementation "org.springframework.batch:spring-batch-test"
+}
+
+tasks.named("test") {
+	useJUnitPlatform()
+}
