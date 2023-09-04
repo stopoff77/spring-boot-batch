@@ -3,10 +3,10 @@
 project:
   name: sb2-web
   version: 1.0
-  base-pkg: ${application.base-pkg} #// FIXME CHECK-package 확인 (공통 설정)
-  base-pkg-2: ${application.base-pkg-2} #// FIXME CHECK-package 확인 (공통 설정)
-  locale: ${application.locale}
-  time-zone: ${application.time-zone}
+  base-pkg: com.example #// FIXME CHECK-package 확인 (공통 설정)
+  base-pkg-2: com.sample #// FIXME CHECK-package 확인 (공통 설정)
+  locale: ko_KR
+  time-zone: Asia/Seoul
 #  locale: en_US
 #  time-zone: UTC
 
