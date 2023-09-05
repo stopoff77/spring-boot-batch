@@ -12,7 +12,6 @@ dependencyManagement {
 
 group   = "${projectGroup}"
 version = "${projectVersion}"
-
 compileJava.options.encoding     = "${javaEncoding}"
 compileTestJava.options.encoding = "${javaEncoding}"
 //[compileJava, compileTestJava]*.options*.encoding = "${javaEncoding}"
@@ -29,7 +28,7 @@ configurations {
 }
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 ext {
@@ -64,18 +63,28 @@ sourceSets {
     }
 }
 
+
 dependencies {
     annotationProcessor "org.projectlombok:lombok"
     compileOnly         "org.projectlombok:lombok"
     developmentOnly     "org.springframework.boot:spring-boot-devtools"
 
-	implementation "org.springframework.boot:spring-boot-starter-batch"
-	implementation "org.springframework.cloud:spring-cloud-starter-task"
-	
-	testImplementation "org.springframework.boot:spring-boot-starter-test"
-	testImplementation "org.springframework.batch:spring-batch-test"
+    implementation "org.springframework.boot:spring-boot-starter-batch"
+    implementation "org.springframework.cloud:spring-cloud-starter-task"
+    
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+    testImplementation "org.springframework.batch:spring-batch-test"
+}
+
+
+tasks.withType(JavaCompile) {
+    options.encoding = "${javaEncoding}"
+}
+
+tasks.javadoc {
+    options.encoding = "${javaEncoding}"
 }
 
 tasks.named("test") {
-	useJUnitPlatform()
+    useJUnitPlatform()
 }
