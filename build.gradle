@@ -17,8 +17,8 @@ compileTestJava.options.encoding = "${javaEncoding}"
 //[compileJava, compileTestJava]*.options*.encoding = "${javaEncoding}"
 
 java {
-    sourceCompatibility = "${javaSource}"
-    targetCompatibility = "${javaTarget}"
+    sourceCompatibility = "${javaVersion}"
+    targetCompatibility = "${javaVersion}"
 }
 
 configurations {
