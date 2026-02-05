@@ -59,5 +59,4 @@ public class SpringBootBatchApplication {
         // JVM 종료
         System.exit(exitCode);
     }
-
 }
