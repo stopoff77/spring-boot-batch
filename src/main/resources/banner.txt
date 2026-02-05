@@ -1,0 +1,12 @@
+${AnsiColor.DEFAULT}:: Spring Boot ${AnsiColor.DEFAULT}${spring-boot.version}${spring-boot.formatted-version}
+${AnsiColor.DEFAULT}:: Powered by ${AnsiColor.GREEN}Spring Boot ${spring-boot.version}
+${AnsiColor.DEFAULT}:: ${AnsiColor.BLUE}${spring.application.name}
+${AnsiColor.GREEN}
+########     ###    ########  ######  ##     ## 
+##     ##   ## ##      ##    ##    ## ##     ## 
+##     ##  ##   ##     ##    ##       ##     ## 
+########  ##     ##    ##    ##       ######### 
+##     ## #########    ##    ##       ##     ## 
+##     ## ##     ##    ##    ##    ## ##     ## 
+########  ##     ##    ##     ######  ##     ## 
+${AnsiColor.DEFAULT}

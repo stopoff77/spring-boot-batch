@@ -16,6 +16,7 @@
 package com.example.batch;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
@@ -23,21 +24,40 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.JndiDataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.context.ConfigurableApplicationContext;
 
+import com.example.batch.common.context.banner.ProfileLoggerListener;
 import com.example.batch.configuration.ComponentScanConfiguration;
 
-@EnableAutoConfiguration(exclude= {
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@EnableAutoConfiguration(exclude = {
         DataSourceAutoConfiguration.class // dataSource yml 설정시 제거
-      , DataSourceTransactionManagerAutoConfiguration.class
-      , JndiDataSourceAutoConfiguration.class
-      , SecurityAutoConfiguration.class
-      , JacksonAutoConfiguration.class
+        , DataSourceTransactionManagerAutoConfiguration.class, JndiDataSourceAutoConfiguration.class,
+        SecurityAutoConfiguration.class, JacksonAutoConfiguration.class
 })
-@SpringBootApplication( scanBasePackageClasses = { ComponentScanConfiguration.class } )
+@SpringBootApplication(scanBasePackageClasses = { ComponentScanConfiguration.class })
 public class SpringBootBatchApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(SpringBootBatchApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication app = new SpringApplication(SpringBootBatchApplication.class);
+
+        // 배치에서는 웹 서버가 필요 없으므로 NONE 설정
+        app.setWebApplicationType(WebApplicationType.NONE);
+
+        // 리스너 추가 (옵션)
+        app.addListeners(new ProfileLoggerListener());
+
+        // 실행 후 context 반환
+        ConfigurableApplicationContext context = app.run(args);
+
+        // 종료 코드 계산
+        int exitCode = SpringApplication.exit(context);
+        log.info("Batch process finished with exitCode={}", exitCode);
+
+        // JVM 종료
+        System.exit(exitCode);
+    }
 
 }
