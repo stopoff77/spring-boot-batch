@@ -11,10 +11,19 @@ project:
 #  time-zone: UTC
 
 
+# spring
 spring:
   application:
     name: ${project.name}
   profiles:
     active:
       - local
+
+
+# logging
+logging:
+  level:
+    root: INFO
+    com.example: DEBUG
+
 

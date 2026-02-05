@@ -1,4 +1,4 @@
-package com.example.batch.biz.example;
+package com.example.batch.biz.sample;
 
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
