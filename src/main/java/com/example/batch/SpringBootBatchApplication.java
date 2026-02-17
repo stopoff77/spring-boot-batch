@@ -52,9 +52,13 @@ public class SpringBootBatchApplication {
         // 실행 후 context 반환
         ConfigurableApplicationContext context = app.run(args);
 
+        //
+        log.info("########## [START] ##########");
+
         // 종료 코드 계산
         int exitCode = SpringApplication.exit(context);
         log.info("Batch process finished with exitCode={}", exitCode);
+        log.info("########## [END] ##########");
 
         // JVM 종료
         System.exit(exitCode);
