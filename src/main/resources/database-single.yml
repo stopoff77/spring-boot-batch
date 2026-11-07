@@ -13,10 +13,6 @@ spring:
       idle-timeout: 30000
       pool-name: BatchHikariCP
 
-  batch:
-    jdbc:
-      initialize-schema: always
-
 
 #mybatis:
 #  mapper-locations: classpath:mapper/**/*.xml

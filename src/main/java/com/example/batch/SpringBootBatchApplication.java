@@ -40,8 +40,21 @@ import lombok.extern.slf4j.Slf4j;
 @SpringBootApplication(scanBasePackageClasses = { ComponentScanConfiguration.class })
 public class SpringBootBatchApplication {
 
-    // 계속 떠있게 하기
+    // 바로 종료
     public static void main(String[] args) {
+        SpringApplication app = new SpringApplication(SpringBootBatchApplication.class);
+
+        // 리스너 추가 (옵션)
+        app.addListeners(new ProfileLoggerListener());
+
+        // 실행 후 context 반환
+        app.run(args);
+
+        log.info("########## [BATCH APPLICATION DESTROYED] ##########");
+    }
+
+    // 계속 떠있게 하기
+    public static void main2(String[] args) {
         SpringApplication app = new SpringApplication(SpringBootBatchApplication.class);
 
         // 리스너 추가 (옵션)
@@ -66,20 +79,6 @@ public class SpringBootBatchApplication {
             log.error("Main thread interrupted", e);
             Thread.currentThread().interrupt();
         }
-    }
-
-
-    // 바로 종료
-    public static void main2(String[] args) {
-        SpringApplication app = new SpringApplication(SpringBootBatchApplication.class);
-
-        // 리스너 추가 (옵션)
-        app.addListeners(new ProfileLoggerListener());
-
-        // 실행 후 context 반환
-        app.run(args);
-
-        log.info("########## [BATCH APPLICATION DESTROYED] ##########");
     }
 
 

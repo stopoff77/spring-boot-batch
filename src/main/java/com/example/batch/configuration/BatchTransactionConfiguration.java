@@ -8,6 +8,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -31,6 +32,7 @@ public class BatchTransactionConfiguration {
     }
 
     // 2. 트랜잭션 매니저 설정
+    @Primary
     @Bean
     PlatformTransactionManager transactionManager(DataSource dataSource) {
         log.info("Creating DataSourceTransactionManager for Spring Batch & Application");
