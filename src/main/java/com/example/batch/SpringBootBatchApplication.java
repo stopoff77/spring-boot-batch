@@ -40,12 +40,52 @@ import lombok.extern.slf4j.Slf4j;
 @SpringBootApplication(scanBasePackageClasses = { ComponentScanConfiguration.class })
 public class SpringBootBatchApplication {
 
-    // WebApplicationType - yml 설정
+    // 계속 떠있게 하기
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(SpringBootBatchApplication.class);
 
-//        // 배치에서는 웹 서버가 필요 없으므로 NONE 설정
-//        app.setWebApplicationType(WebApplicationType.NONE);
+        // 리스너 추가 (옵션)
+        app.addListeners(new ProfileLoggerListener());
+
+        // 실행 후 context 반환
+        app.run(args);
+
+
+        log.info("########## [BATCH APPLICATION STARTED] ##########");
+
+        // [핵심] 배치 작업 완료 후 프로세스가 즉시 종료되지 않도록 메인 스레드 대기 처리
+        try {
+            // 방법 1: 현재 메인 스레드를 무한 대기시킴 (서버처럼 계속 켜져 있음)
+            Thread.currentThread().join();
+
+            /*
+             * 방법 2: 특정 조건이나 외부 신호(Ctrl+C 등)로 안전하게 종료하고 싶다면
+             * CountDownLatch나 아래와 같은 셧다운 훅을 조합할 수도 있습니다.
+             */
+        } catch (InterruptedException e) {
+            log.error("Main thread interrupted", e);
+            Thread.currentThread().interrupt();
+        }
+    }
+
+
+    // 바로 종료
+    public static void main2(String[] args) {
+        SpringApplication app = new SpringApplication(SpringBootBatchApplication.class);
+
+        // 리스너 추가 (옵션)
+        app.addListeners(new ProfileLoggerListener());
+
+        // 실행 후 context 반환
+        app.run(args);
+
+        log.info("########## [BATCH APPLICATION DESTROYED] ##########");
+    }
+
+
+    // WebApplicationType - yml 설정 (spring.main.web-application-type: NONE)
+    public static void main_with_exit_YML(String[] args) {
+        SpringApplication app = new SpringApplication(SpringBootBatchApplication.class);
 
         // 리스너 추가 (옵션)
         app.addListeners(new ProfileLoggerListener());
@@ -67,7 +107,7 @@ public class SpringBootBatchApplication {
 
 
     // WebApplicationType - java 설정
-    public static void main2(String[] args) {
+    public static void main_with_exit_JAVA(String[] args) {
         SpringApplication app = new SpringApplication(SpringBootBatchApplication.class);
 
         // 배치에서는 웹 서버가 필요 없으므로 NONE 설정

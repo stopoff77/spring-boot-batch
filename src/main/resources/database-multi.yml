@@ -1,0 +1,21 @@
+
+#
+spring:
+  datasource:
+    # 배치 메타데이터 전용 DB (예: H2 또는 별도 DB)
+    batch:
+      driver-class-name: org.h2.Driver
+      url: jdbc:h2:mem:batchdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+      username: sa
+      password:
+    # 비즈니스 로직용 메인 DB
+    main:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/business_db?useSSL=false&serverTimezone=UTC
+      username: app_user
+      password: app_password
+
+  batch:
+    jdbc:
+      initialize-schema: always # 배치 테이블 자동 생성
+

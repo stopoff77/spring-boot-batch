@@ -45,12 +45,12 @@ public class ProfileLoggerListener implements ApplicationListener<ApplicationEnv
 
 
         //
-        String webClientType = event.getEnvironment().getProperty("web.web-client.type");
+        String webApplicationType = event.getEnvironment().getProperty("spring.main.web-application-type");
 
         System.out.println("====================================");
-        System.out.println("   WebClient TYPE");
+        System.out.println("   WEB-APPLICATION-TYPE");
         System.out.println("====================================");
-        System.out.println("          " + webClientType);
+        System.out.println("          " + webApplicationType);
         System.out.println("====================================");
 //        log.info("====================================");
 //        log.info("   WebClient TYPE");

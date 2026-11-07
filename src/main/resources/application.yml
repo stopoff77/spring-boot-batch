@@ -17,6 +17,9 @@ spring:
     web-application-type: NONE
   application:
     name: ${project.name}
+  config:
+    import:
+      - classpath:database-single.yml
   profiles:
     active:
       - local
