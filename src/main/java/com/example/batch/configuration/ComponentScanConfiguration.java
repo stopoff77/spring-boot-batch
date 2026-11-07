@@ -22,13 +22,13 @@ import org.springframework.context.annotation.Configuration;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@ComponentScan              ( basePackages = { ComponentScanConfiguration.BASE_PKG } )
-@ConfigurationPropertiesScan( basePackages = { ComponentScanConfiguration.BASE_PKG } ) // @ConfigurationProperties Scan 설정
+@ComponentScan(basePackages = { ComponentScanConfiguration.BASE_PKG })
+@ConfigurationPropertiesScan(basePackages = { ComponentScanConfiguration.BASE_PKG }) // @ConfigurationProperties Scan 설정
 //@ServletComponentScan       ( basePackages = { ComponentScanConfiguration.BASE_PKG } ) // @WebFilter, @WebListener, @WebServlet annotation 사용하기 위한 annotation
 @Configuration
 public class ComponentScanConfiguration {
 
-    private static final String BASE_PKG = "com.example";
+    public static final String BASE_PKG = "com.example";
 
 
     public ComponentScanConfiguration() {
