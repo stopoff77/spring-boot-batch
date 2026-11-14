@@ -21,11 +21,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
-import org.springframework.boot.autoconfigure.jdbc.JndiDataSourceAutoConfiguration;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.boot.jdbc.autoconfigure.DataSourceAutoConfiguration;
+import org.springframework.boot.jdbc.autoconfigure.DataSourceTransactionManagerAutoConfiguration;
+import org.springframework.boot.jdbc.autoconfigure.JndiDataSourceAutoConfiguration;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.Environment;
 
@@ -37,8 +35,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @EnableAutoConfiguration(exclude = {
         DataSourceAutoConfiguration.class // dataSource yml 설정시 제거
-        , DataSourceTransactionManagerAutoConfiguration.class, JndiDataSourceAutoConfiguration.class,
-        SecurityAutoConfiguration.class, JacksonAutoConfiguration.class
+        , DataSourceTransactionManagerAutoConfiguration.class, JndiDataSourceAutoConfiguration.class
 })
 @SpringBootApplication(scanBasePackageClasses = { ComponentScanConfiguration.class })
 public class SpringBootBatchApplication {

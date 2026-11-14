@@ -5,7 +5,6 @@ import java.util.stream.Collectors;
 
 import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
 import org.springframework.context.ApplicationListener;
-import org.springframework.http.HttpMethod;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -57,24 +56,5 @@ public class ProfileLoggerListener implements ApplicationListener<ApplicationEnv
 //        log.info("====================================");
 //        log.info("          {}", webClientType);
 //        log.info("====================================");
-
-
-        // 아래 클래스 정보 가져오는 소스
-        Class<?> clazz = HttpMethod.class;
-
-        System.out.println("===== " + clazz.getSimpleName() + " 클래스 정보 =====");
-        System.out.println("FQCN         : " + clazz.getName());
-        System.out.println("isEnum       : " + clazz.isEnum());
-        System.out.println("ClassLoader  : " + clazz.getClassLoader());
-        System.out.println("Location     : " +
-                clazz.getProtectionDomain().getCodeSource().getLocation());
-        System.out.println("=================================");
-//        log.info("===== {} 클래스 정보 =====", clazz.getSimpleName());
-//        log.info("FQCN         : {}", clazz.getName());
-//        log.info("isEnum       : {}", clazz.isEnum());
-//        log.info("ClassLoader  : {}", clazz.getClassLoader());
-//        log.info("Location     : {}", clazz.getProtectionDomain().getCodeSource().getLocation());
-//        log.info("=================================");
-
     }
 }

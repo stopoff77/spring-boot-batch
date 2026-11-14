@@ -1,8 +1,8 @@
 package com.example.batch.biz.schedule;
 
-import org.springframework.batch.core.Job;
-import org.springframework.batch.core.JobParametersBuilder;
-import org.springframework.batch.core.launch.JobLauncher;
+import org.springframework.batch.core.job.Job;
+import org.springframework.batch.core.job.parameters.JobParametersBuilder;
+import org.springframework.batch.core.launch.JobOperator;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -13,12 +13,12 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class BatchScheduler {
 
-    private final JobLauncher jobLauncher;
+    private final JobOperator jobOperator;
     private final Job         customTaskletJob; // CustomTaskletJobConfiguration에 정의된 Job 빈 이름
 
 
-    public BatchScheduler(JobLauncher jobLauncher, @Qualifier("customJob") Job customTaskletJob) {
-        this.jobLauncher      = jobLauncher;
+    public BatchScheduler(JobOperator jobOperator, @Qualifier("customJob") Job customTaskletJob) {
+        this.jobOperator      = jobOperator;
         this.customTaskletJob = customTaskletJob;
     }
 
@@ -34,7 +34,7 @@ public class BatchScheduler {
                     .addLong("time", System.currentTimeMillis())
                     .toJobParameters();
 
-            jobLauncher.run(customTaskletJob, jobParameters);
+            jobOperator.run(customTaskletJob, jobParameters);
 
         } catch (Exception e) {
             log.error("Batch Job execution failed", e);

@@ -1,8 +1,8 @@
 package com.example.batch.biz.job;
 
-import org.springframework.batch.core.Job;
-import org.springframework.batch.core.JobParametersBuilder;
-import org.springframework.batch.core.launch.JobLauncher;
+import org.springframework.batch.core.job.Job;
+import org.springframework.batch.core.job.parameters.JobParametersBuilder;
+import org.springframework.batch.core.launch.JobOperator;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class BatchExecutionRunner implements ApplicationRunner {
 
-    private final JobLauncher jobLauncher;
+    private final JobOperator jobOperator;
     private final Job         customTaskletJob; // CustomTaskletJobConfiguration에 선언된 Job 빈
 
     @Override
@@ -27,6 +27,6 @@ public class BatchExecutionRunner implements ApplicationRunner {
                 .addLong("runTime", System.currentTimeMillis())
                 .toJobParameters();
 
-        jobLauncher.run(customTaskletJob, jobParameters);
+        jobOperator.run(customTaskletJob, jobParameters);
     }
 }

@@ -2,8 +2,7 @@ package com.example.batch.configuration;
 
 import javax.sql.DataSource;
 
-import org.springframework.boot.autoconfigure.batch.BatchDataSourceScriptDatabaseInitializer;
-import org.springframework.boot.autoconfigure.batch.BatchProperties;
+import org.springframework.boot.batch.autoconfigure.BatchProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -37,13 +36,6 @@ public class BatchTransactionConfiguration {
     PlatformTransactionManager transactionManager(DataSource dataSource) {
         log.info("Creating DataSourceTransactionManager for Spring Batch & Application");
         return new DataSourceTransactionManager(dataSource);
-    }
-
-    // 3. Spring Batch 메타데이터 테이블 자동 생성 스크립트 실행 설정
-    @Bean
-    BatchDataSourceScriptDatabaseInitializer batchRepositoryInitializer(
-            DataSource dataSource, BatchProperties properties) {
-        return new BatchDataSourceScriptDatabaseInitializer(dataSource, properties.getJdbc());
     }
 }
 
